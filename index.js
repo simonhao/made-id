@@ -74,6 +74,11 @@ exports.path = function(id, options){
       return filename;
   }
 
+  filename = path.join(options.basedir, id);
+  if(fs.existsSync(filename)){
+      return filename;
+  }
+
   var dirname = path.dirname(options.filename);
 
   filename = path.join(dirname, id, options.entry);
@@ -82,6 +87,11 @@ exports.path = function(id, options){
   }
 
   filename = path.join(dirname, id + options.ext);
+  if(fs.existsSync(filename)){
+      return filename;
+  }
+
+  filename = path.join(dirname, id);
   if(fs.existsSync(filename)){
       return filename;
   }
