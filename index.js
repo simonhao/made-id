@@ -23,16 +23,19 @@ var path = require('path');
  */
 exports.id = function(filename, options){
   var relative_info = path.parse(path.relative(options.basedir, path.normalize(filename)));
+  var path_buf = relative_info.dir.split(path.sep);
+
+  if(path_buf[0] === '') path_buf.shift();
 
   if(relative_info.base === options.entry){
 
-    return relative_info.dir.split(path.sep).join('/');
+    return path_buf.join('/');
   }else if(relative_info.ext === options.ext){
 
-    return relative_info.dir.split(path.sep).join('/') + '/' + relative_info.name;
-  }else{
+    return path_buf.join('/') + '/' + relative_info.name;
 
-    return relative_info.dir.split(path.sep).join('/') + '/' + relative_info.base;
+  }else{
+    return rpath_buf + '/' + relative_info.base;
   }
 };
 
