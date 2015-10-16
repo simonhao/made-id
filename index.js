@@ -28,15 +28,13 @@ exports.id = function(filename, options){
   if(path_buf[0] === '') path_buf.shift();
 
   if(relative_info.base === options.entry){
-
-    return path_buf.join('/');
   }else if(relative_info.ext === options.ext){
-
-    return path_buf.join('/') + '/' + relative_info.name;
-
+    path_buf.push(relative_info.name);
   }else{
-    return rpath_buf + '/' + relative_info.base;
+    path_buf.push(relative_info.base);
   }
+
+  return path_buf.join('/');
 };
 
 /**

@@ -1,6 +1,6 @@
 {
   "name": "made-id",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "map filename with id or sid",
   "main": "index.js",
   "scripts": {
