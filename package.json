@@ -1,14 +1,14 @@
 {
   "name": "made-id",
   "version": "0.1.3",
-  "description": "map filename with id or sid",
+  "description": "find module real path use id and generate short_id from path",
   "main": "index.js",
   "scripts": {
     "test": "node ./test/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/simonhao/made-id"
+    "url": "git+https://github.com/simonhao/made-id"
   },
   "author": "simonhao",
   "license": "MIT",
