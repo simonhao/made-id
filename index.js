@@ -26,7 +26,11 @@ exports.id = function(filename, options){
 
   if(path.isAbsolute(filename)){
     path_info = path.parse(path.relative(options.basedir, filename));
-    path_buf  = path_info.dir.split(path.sep);
+    path_buf  = [];
+
+    if(path_info.dir){
+      path_buf = path_info.dir.split(path.sep);
+    }
 
     if(path_info.base === options.entry){
 

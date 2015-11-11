@@ -1,6 +1,6 @@
 {
   "name": "made-id",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "find module real path use id and generate short_id from path",
   "main": "index.js",
   "scripts": {
