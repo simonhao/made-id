@@ -10,39 +10,44 @@ var fs   = require('fs');
 var path = require('path');
 /**
  * comm options
- * @param {string} options.basedir  set basedir
- * @param {string} options.entry    set default entry file, eg: index.jade
- * @param {string} options.ext      set file extname, eg: .jade
+ * @param {string} options.basedir  设置根目录
+ * @param {string} options.entry    设置入口文件, eg: index.jade
+ * @param {string} options.ext      设置扩展名, eg: .jade
  */
 
 /**
- * covert filename to id
- * @param  {string} filename filename
- * @param  {object} options  covert options
- * @return {string}          id
+ * 将文件名转换为ID
+ * @param  {string} filename  文件名
+ * @param  {object} options   设置，参考comm options
+ * @return {string}           ID
  */
 exports.id = function(filename, options){
-  var relative_info = path.parse(path.relative(options.basedir, path.normalize(filename)));
-  var path_buf = relative_info.dir.split(path.sep);
+  var path_info, path_buf;
 
-  if(path_buf[0] === '') path_buf.shift();
+  if(path.isAbsolute(filename)){
+    path_info = path.parse(path.relative(options.basedir, filename));
+    path_buf  = path_info.dir.split(path.sep);
 
-  if(relative_info.base === options.entry){
-  }else if(relative_info.ext === options.ext){
-    path_buf.push(relative_info.name);
+    if(path_info.base === options.entry){
+
+    }else if(path_info.ext === options.ext){
+      path_buf.push(path_info.name);
+    }else{
+      path_buf.push(path_info.base);
+    }
+
+    return path_buf.join('/');
   }else{
-    path_buf.push(relative_info.base);
+    console.error('filename is\'t absolute', filename);
   }
-
-  return path_buf.join('/');
 };
 
 /**
- * covert file to sid
- * @param  {string} filename      filename
- * @param  {object} options       cover options
- * @param  {string} options.dev   set dev mode
- * @return {string}               sid
+ * 将文件名转换为SID
+ * @param  {string} filename      文件名
+ * @param  {object} options       设置，参考comm options
+ * @param  {string} options.dev   设置转换模式是否为开发模式
+ * @return {string}               SID
  */
 exports.sid = function(filename, options){
   var id = exports.id(filename, options);
@@ -55,49 +60,46 @@ exports.sid = function(filename, options){
 };
 
 /**
- * covert id to filename
- * @param  {string} id                id
- * @param  {object} options           covert options
- * @param  {string} options.filename  set id current filename
- * @return {string}                   filename
+ * 从ID获取真实路径名
+ * @param  {string} id                ID
+ * @param  {object} options           设置，参考comm options
+ * @param  {string} options.filename  设置该ID所在的文件
+ * @return {string}                   真实路径名
  */
 exports.path = function(id, options){
-
   var filename = '';
 
   filename = path.join(options.basedir, id, options.entry);
-  if(fs.existsSync(filename)){
+  if(fs.existsSync(filename) && fs.statSync(filename).isFile()){
       return filename;
   }
 
   filename = path.join(options.basedir, id + options.ext);
-  if(fs.existsSync(filename)){
+  if(fs.existsSync(filename) && fs.statSync(filename).isFile()){
       return filename;
   }
 
   filename = path.join(options.basedir, id);
-  if(fs.existsSync(filename)){
+  if(fs.existsSync(filename) && fs.statSync(filename).isFile()){
       return filename;
   }
 
   var dirname = path.dirname(options.filename);
 
   filename = path.join(dirname, id, options.entry);
-  if(fs.existsSync(filename)){
+  if(fs.existsSync(filename) && fs.statSync(filename).isFile()){
       return filename;
   }
 
   filename = path.join(dirname, id + options.ext);
-  if(fs.existsSync(filename)){
+  if(fs.existsSync(filename) && fs.statSync(filename).isFile()){
       return filename;
   }
 
   filename = path.join(dirname, id);
-  if(fs.existsSync(filename)){
+  if(fs.existsSync(filename) && fs.statSync(filename).isFile()){
       return filename;
   }
-
-  return id;
 };
 
 
