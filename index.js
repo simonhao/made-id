@@ -6,8 +6,9 @@
 
 'use strict';
 
-var fs   = require('fs');
-var path = require('path');
+var fs     = require('fs');
+var crypto = require('crypto');
+var path   = require('path');
 /**
  * comm options
  * @param {string} options.basedir  设置根目录
@@ -46,6 +47,11 @@ exports.id = function(filename, options){
   }
 };
 
+
+function gen_str_md5(str){
+  return crypto.createHash('md5').update(str).digest('hex').substring(0,4);
+}
+
 /**
  * 将文件名转换为SID
  * @param  {string} filename      文件名
@@ -56,10 +62,10 @@ exports.id = function(filename, options){
 exports.sid = function(filename, options){
   var id = exports.id(filename, options);
 
-  if(options.dev){
+  if(options.model === 'dev'){
     return id.split('/').join('-');
   }else{
-    return id.split('/').join('-');
+    return gen_str_md5(id);
   }
 };
 

@@ -30,7 +30,7 @@ console.log('filename ==> sid');
 console.log(mid.sid('/home/simonhao/project/pomelo/src/comm/module/header/view.jade', options));
 console.log(mid.sid('/home/simonhao/project/pomelo/src/comm/style/footer.jade', options));
 
-options.dev = true;
+options.model = 'dev';
 
 console.log('filename ==> sid dev-mode');
 console.log(mid.sid('/home/simonhao/project/pomelo/src/comm/module/header/view.jade', options));
