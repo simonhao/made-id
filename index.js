@@ -47,9 +47,8 @@ exports.id = function(filename, options){
   }
 };
 
-
-function gen_str_md5(str){
-  return crypto.createHash('md5').update(str).digest('hex').substring(0,4);
+function gen_short_id(str){
+  return str.split('/').join('-');
 }
 
 /**
@@ -65,7 +64,7 @@ exports.sid = function(filename, options){
   if(options.model === 'dev'){
     return id.split('/').join('-');
   }else{
-    return gen_str_md5(id);
+    return gen_short_id(id);
   }
 };
 
