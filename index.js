@@ -59,7 +59,7 @@ function gen_short_id(str){
  * @return {string}               SID
  */
 exports.sid = function(filename, options){
-  var id = exports.id(filename, options);
+  var id = exports.id(filename, options) || '';
 
   if(options.model === 'dev'){
     return id.split('/').join('-');
