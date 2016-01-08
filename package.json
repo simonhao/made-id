@@ -1,6 +1,6 @@
 {
   "name": "made-id",
-  "version": "0.2.4",
+  "version": "0.3.1",
   "description": "find module real path use id and generate short_id from path",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/simonhao/made-id/issues"
   },
-  "homepage": "https://github.com/simonhao/made-id#readme"
+  "homepage": "https://github.com/simonhao/made-id#readme",
+  "dependencies": {
+    "extend": "^3.0.0"
+  }
 }
